@@ -1,0 +1,7 @@
+const openBtn=document.getElementById('open');const letter=document.getElementById('carta');const final=document.getElementById('final');const song=document.getElementById('song');const music=document.getElementById('musicToggle');let audioAvailable=true;
+function show(section){section.classList.remove('hidden');setTimeout(()=>section.scrollIntoView({behavior:'smooth',block:'start'}),80)}
+function updateMusic(){music.innerHTML=song.paused?'♫ <span>Reproducir</span>':'♫ <span>Pausar</span>'}
+openBtn.addEventListener('click',async()=>{show(letter);music.hidden=false;try{await song.play()}catch(e){audioAvailable=false;music.title='Agrega musica/viernes13.mp3 para activar la canción'}updateMusic();burst(22)});
+music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){alert('Para escuchar la canción, agrega tu archivo MP3 en la carpeta musica con el nombre viernes13.mp3.')}}else song.pause();updateMusic()});
+document.getElementById('wish').addEventListener('click',()=>{show(final);burst(38)});document.getElementById('again').addEventListener('click',()=>letter.scrollIntoView({behavior:'smooth'}));
+function burst(n){for(let i=0;i<n;i++)setTimeout(()=>{let el=document.createElement('span');el.className='heart';el.textContent=['♥','♡','✦'][Math.floor(Math.random()*3)];el.style.left=Math.random()*100+'vw';el.style.fontSize=14+Math.random()*22+'px';el.style.opacity=.5+Math.random()*.5;el.style.animationDuration=4+Math.random()*4+'s';document.getElementById('hearts').appendChild(el);setTimeout(()=>el.remove(),8500)},i*130)}
